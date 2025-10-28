@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VidGrabber - Download Videos in HD</title>
+    
+  <meta name="google-adsense-account" content="ca-pub-3362956243451098">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3362956243451098"
+     crossorigin="anonymous"></script>
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .download-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .input-group {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .url-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .url-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .paste-btn {
+            padding: 0 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .paste-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .download-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--accent), var(--warning));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(242, 100, 48, 0.4);
+        }
+        
+        .platforms {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .platform {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 15px;
+            width: 100px;
+            transition: all 0.3s ease;
+        }
+        
+        .platform:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .platform-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .platform-name {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            width: 100%;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .instructions {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .instructions-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            opacity: 0.8;
+        }
+        
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .download-card {
+                padding: 1.5rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .url-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+            
+            .paste-btn {
+                border-radius: 50px;
+                padding: 12px;
+            }
+            
+            .platforms {
+                gap: 0.5rem;
+            }
+            
+            .platform {
+                width: 80px;
+                padding: 0.8rem 0.5rem;
+            }
+            
+            .platform-icon {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">VidGrabber</h1>
+            <p class="tagline">Download videos from Instagram, YouTube, and more in Full HD quality</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="download-card">
+                <h2 class="card-title">Paste Video URL</h2>
+                <div class="input-group">
+                    <input type="text" class="url-input" placeholder="Paste Instagram, YouTube, or other video link here...">
+                    <button class="paste-btn">Paste</button>
+                </div>
+                <button class="download-btn">Download in HD</button>
+            </div>
+            
+            <div class="platforms">
+                <div class="platform">
+                    <div class="platform-icon">📷</div>
+                    <span class="platform-name">Instagram</span>
+                </div>
+                <div class="platform">
+                    <div class="platform-icon">▶️</div>
+                    <span class="platform-name">YouTube</span>
+                </div>
+                <div class="platform">
+                    <div class="platform-icon">🔍</div>
+                    <span class="platform-name">Chrome</span>
+                </div>
+                <div class="platform">
+                    <div class="platform-icon">📥</div>
+                    <span class="platform-name">Vidmate</span>
+                </div>
+                <div class="platform">
+                    <div class="platform-icon">🎬</div>
+                    <span class="platform-name">Reels</span>
+                </div>
+                <div class="platform">
+                    <div class="platform-icon">⚡</div>
+                    <span class="platform-name">Shorts</span>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Fast Download</h3>
+                    <p class="feature-desc">Download videos quickly with our optimized servers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3 class="feature-title">HD Quality</h3>
+                    <p class="feature-desc">Get videos in Full HD 1080p and higher resolutions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Safe & Secure</h3>
+                    <p class="feature-desc">Your data privacy is our top priority</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💯</div>
+                    <h3 class="feature-title">Free to Use</h3>
+                    <p class="feature-desc">No hidden charges, completely free service</p>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h2 class="instructions-title">How to Download Videos</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Copy Video Link</h3>
+                            <p>Go to Instagram, YouTube, or any supported platform and copy the video link</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Paste the URL</h3>
+                            <p>Paste the copied link in the input field above</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Download</h3>
+                            <p>Click the download button and choose your preferred video quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2023 VidGrabber - All rights reserved | Download videos for personal use only</p>
+        </footer>
+    </div>
+
+    <script>
+        // Paste button functionality
+        document.querySelector('.paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.querySelector('.url-input').value = text;
+            } catch (err) {
+                alert('Failed to paste from clipboard. Please paste manually.');
+            }
+        });
+        
+        // Download button functionality
+        document.querySelector('.download-btn').addEventListener('click', () => {
+            const url = document.querySelector('.url-input').value.trim();
+            
+            if (!url) {
+                alert('Please enter a video URL');
+                return;
+            }
+            
+            // Check if URL is from a supported platform
+            const supportedPlatforms = [
+                'instagram.com', 'youtube.com', 'youtu.be', 
+                'chrome.com', 'vidmate.com'
+            ];
+            
+            const isSupported = supportedPlatforms.some(platform => url.includes(platform));
+            
+            if (!isSupported) {
+                alert('This platform is not supported or the URL is invalid. Please check the URL and try again.');
+                return;
+            }
+            
+            // Simulate download process
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.textContent;
+            
+            downloadBtn.textContent = 'Processing...';
+            downloadBtn.disabled = true;
+            
+            setTimeout(() => {
+                downloadBtn.textContent = 'Download Starting...';
+                
+                setTimeout(() => {
+                    downloadBtn.textContent = originalText;
+                    downloadBtn.disabled = false;
+                    alert('Your download should start shortly. If not, check your browser downloads.');
+                }, 1000);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
