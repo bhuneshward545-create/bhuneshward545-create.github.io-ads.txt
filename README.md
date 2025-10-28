@@ -1,1 +1,0 @@
-# bhuneshward545-create.github.io-ads.txt
